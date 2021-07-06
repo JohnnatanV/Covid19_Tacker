@@ -33,6 +33,25 @@
           <div class="country">
             <div class="name">Loading...</div>
             <div class="change-country">Change</div>
+            <div class="search-country hide">
+              <div class="search-box">
+                <input
+                  type="text id='search-input"
+                  placeholder="Search Country..."
+                />
+                <img
+                  class="close"
+                  src="./resources/img/close.svg"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="country-list">
+                <!-- <ul id="list-0">
+                  <li>USA</li>
+                </ul> -->
+              </div>
+            </div>
           </div>
           <div class="total-cases">
             <div class="title">Total Cases</div>
@@ -50,7 +69,18 @@
             <div class="new-value">+0</div>
           </div>
         </div>
+        <div class="chart">
+          <canvas id="axes_line_chart"> </canvas>
+        </div>
       </div>
     </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="copyright">
+          <p>Copyright © 2021 Tutorial from Code Explained</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

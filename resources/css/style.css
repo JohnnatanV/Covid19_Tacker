@@ -103,22 +103,167 @@ main {
 .latest-report {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   width: 80%;
   margin: 0 auto;
+  padding-top: 50px;
 
   color: #fff;
 }
+
+.country,
+.total-cases,
+.recovered,
+.deaths {
+  height: 100px;
+}
+
+.name {
+  color: #be64f1;
+  font-weight: bold;
+  font-size: 2.2em;
+}
+
+.change-country {
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.3em;
+}
+
+.total-cases .value {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.recovered .value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #009699;
+}
+
+.deaths .value {
+  font-size: 2em;
+  font-weight: bold;
+  color: #f44336;
+}
+
+.new-value {
+  font-size: 1.3em;
+}
 /* -------- CHART -------- */
+.chart {
+  width: 80%;
+  height: 70vh;
+  min-height: 500px;
 
+  margin: 0 auto;
+  padding: 50px 0;
+}
 /* -------- SEARCH COUNTRY -------- */
+.search-country {
+  position: relative;
+  top: 10px;
+}
 
+.search-box {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 400px;
+
+  background-color: #111;
+
+  z-index: 1;
+}
+
+.search-box input {
+  width: 360px;
+  height: 25px;
+
+  border: none;
+
+  background-color: transparent;
+  color: #fff;
+
+  padding-left: 15px;
+}
+
+.search-box img {
+  width: 20px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+.country-list {
+  display: flex;
+
+  position: absolute;
+  top: 30px;
+
+  width: 400px;
+  height: 360px;
+
+  background-color: #111;
+  opacity: 0.7;
+
+  overflow-y: scroll;
+}
+
+.country-list ul {
+  width: 100%;
+}
+
+.country-list ul li {
+  list-style: none;
+  cursor: pointer;
+
+  padding: 10px;
+
+  color: #fff;
+
+  border-left: 1px solid transparent;
+}
+
+.country-list ul li:hover {
+  border-left: 1px solid #fff;
+}
 /* SCROLL BAR */
 
 /* ---------------------------------------------- */
 /*                    FOOTER                      */
 /* ---------------------------------------------- */
+footer {
+  max-width: 1200px;
+  height: 60px;
 
+  margin: 0 auto;
+  background-color: #6a149b;
+}
+
+.footer-container {
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.copyright {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.copyright p {
+  color: #fff;
+}
 /* ---------------------------------------------- */
 /*             SCREEN WIDTH < 600px               */
 /* ---------------------------------------------- */
