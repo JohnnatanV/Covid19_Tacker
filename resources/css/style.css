@@ -204,7 +204,7 @@ main {
   display: flex;
 
   position: absolute;
-  top: 30px;
+  top: 25px;
 
   width: 400px;
   height: 360px;
@@ -234,7 +234,25 @@ main {
   border-left: 1px solid #fff;
 }
 /* SCROLL BAR */
+/* width */
+.country-list::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+.country-list::-webkit-scrollbar-track {
+  background: #111;
+}
+
+/* Handle */
+.country-list::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+/* Handle on hover */
+.country-list::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
 /* ---------------------------------------------- */
 /*                    FOOTER                      */
 /* ---------------------------------------------- */
@@ -267,3 +285,10 @@ footer {
 /* ---------------------------------------------- */
 /*             SCREEN WIDTH < 600px               */
 /* ---------------------------------------------- */
+@media screen and (max-width: 600px) {
+  .latest-report {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
