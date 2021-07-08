@@ -211,7 +211,7 @@ const searchCountryElement = document.querySelector(".search-country");
 const countryListElement = document.querySelector(".country-list");
 const changeCountryBtn = document.querySelector(".change-country");
 const closeListBtn = document.querySelector(".close");
-const input = document.querySelector(".search-input");
+const input = document.querySelector("#search-input");
 
 //CREATE THE COUNTRY LIST
 
@@ -221,14 +221,59 @@ function createCountryList() {
   let i = 0,
     ulListId;
 
-  countryList.forEach(country, (index) => {
+  countryList.forEach((country, index) => {
     if (index % Math.ceil(numCountries / num_of_ul_list) == 0) {
       ulListId = `list-${i}`;
       countryListElement.innerHTML += `<ul id='${ulListId}'></ul>`;
       i++;
     }
+
+    document.getElementById(
+      `${ulListId}`
+    ).innerHTML += `<li onclick="fetchData('${country.name}')" id="${country.name}">${country.name}</li>`;
   });
 }
 
 let num_of_ul_list = 3;
 createCountryList();
+
+// SHOW / HIDE THE COUNTRY LIST
+
+changeCountryBtn.addEventListener("click", function () {
+  input.value = "";
+  resetCountryList();
+  searchCountryElement.classList.toggle("hide");
+  searchCountryElement.classList.add("fadeIn");
+});
+
+// CLOSE EVENT
+
+closeListBtn.addEventListener("click", function () {
+  searchCountryElement.classList.toggle("hide");
+});
+
+countryListElement.addEventListener("click", function () {
+  searchCountryElement.classList.toggle("hide");
+});
+
+// COUNTRY FILTER
+
+input.addEventListener("input", function () {
+  let value = input.value.toUpperCase();
+
+  countryList.forEach((country) => {
+    if (country.name.toUpperCase().startsWith(value)) {
+      document.getElementById(country.name).classList.remove("hide");
+    } else {
+      document.getElementById(country.name).classList.add("hide");
+    }
+  });
+});
+
+// RESET COUNTRY LIST
+
+function resetCountryList() {
+  countryList.forEach((country) => {
+    document.getElementById(country.name).classList.remove("hide");
+  });
+}

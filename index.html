@@ -36,7 +36,8 @@
             <div class="search-country hide">
               <div class="search-box">
                 <input
-                  type="text id='search-input"
+                  type="text"
+                  id="search-input"
                   placeholder="Search Country..."
                 />
                 <img
@@ -46,11 +47,7 @@
                   srcset=""
                 />
               </div>
-              <div class="country-list">
-                <!-- <ul id="list-0">
-                  <li>USA</li>
-                </ul> -->
-              </div>
+              <div class="country-list"></div>
             </div>
           </div>
           <div class="total-cases">
@@ -70,7 +67,7 @@
           </div>
         </div>
         <div class="chart">
-          <canvas id="axes_line_chart"> </canvas>
+          <canvas id="axesLineChart"> </canvas>
         </div>
       </div>
     </main>
@@ -82,6 +79,13 @@
         </div>
       </div>
     </footer>
+
+    <!-- API GEOPLUGIN -->
+    <script
+      language="JavaScript"
+      src="http://www.geoplugin.net/javascript.gp"
+      type="text/javascript"
+    ></script>
 
     <script src="./resources/js/countries.js"></script>
     <script src="./resources/js/app.js"></script>
