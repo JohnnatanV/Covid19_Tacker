@@ -4,52 +4,55 @@
 /* ---------------------------------------------- */
 
 // SELECT ALL ELEMENTS
-const country_name_element = document.querySelector(".country .name");
-const total_cases_element = document.querySelector(".total-cases .value");
-const new_cases_element = document.querySelector(".total-cases .new-value");
-const recovered_element = document.querySelector(".recovered .value");
-const new_recovered_element = document.querySelector(".recovered .new-value");
-const deaths_element = document.querySelector(".deaths .value");
-const new_deaths_element = document.querySelector(".deaths .new-value");
+const countryNameElement = document.querySelector(".country .name");
+const totalCasesElement = document.querySelector(".total-cases .value");
+const newCasesElement = document.querySelector(".total-cases .new-value");
+const recoveredElement = document.querySelector(".recovered .value");
+const newRecoveredElement = document.querySelector(".recovered .new-value");
+const deathsElement = document.querySelector(".deaths .value");
+const newDeathsElement = document.querySelector(".deaths .new-value");
 
-const ctx = document.getElementById("axes_line_chart").getContext("2d");
+const canvas = document.getElementById("axesLineChart");
+const ctx = canvas.getContext("2d");
+
+console.log(ctx);
 
 // APP VARIABLES
-let app_data = [],
-  cases_list = [],
-  recovered_list = [],
-  deaths_list = [],
+let appData = [],
+  casesList = [],
+  recoveredList = [],
+  deathsList = [],
   deaths = [],
   formatedDates = [];
 
 // GET USERS COUNTRY CODE
 fetch(
-  "https://api.ipgeolocation.io/ipgeo?apiKey=14c7928d2aef416287e034ee91cd360d"
+  "http://api.ipstack.com/179.13.205.50?access_key=63b6363c29cf7572c24fbafe815562f9"
 )
   .then((res) => {
     return res.json();
   })
   .then((data) => {
-    let country_code = data.country_code2;
-    let user_country;
-    country_list.forEach((country) => {
-      if (country.code == country_code) {
-        user_country = country.name;
+    let countryCode = data.countryCode2;
+    let userCountry;
+    countryList.forEach((country) => {
+      if (country.code == countryCode) {
+        userCountry = country.name;
       }
     });
-    fetchData(user_country);
+    fetchData(userCountry);
   });
 
 /* ---------------------------------------------- */
 /*                     FETCH API                  */
 /* ---------------------------------------------- */
 function fetchData(country) {
-  user_country = country;
-  country_name_element.innerHTML = "Loading...";
+  userCountry = country;
+  countryNameElement.innerHTML = "Loading...";
 
-  (cases_list = []),
-    (recovered_list = []),
-    (deaths_list = []),
+  (casesList = []),
+    (recoveredList = []),
+    (deathsList = []),
     (dates = []),
     (formatedDates = []);
 
@@ -58,7 +61,7 @@ function fetchData(country) {
     redirect: "follow",
   };
 
-  const api_fetch = async (country) => {
+  const apiFetch = async (country) => {
     await fetch(
       "https://api.covid19api.com/total/country/" +
         country +
@@ -71,7 +74,7 @@ function fetchData(country) {
       .then((data) => {
         data.forEach((entry) => {
           dates.push(entry.Date);
-          cases_list.push(entry.Cases);
+          casesList.push(entry.Cases);
         });
       });
 
@@ -86,7 +89,7 @@ function fetchData(country) {
       })
       .then((data) => {
         data.forEach((entry) => {
-          recovered_list.push(entry.Cases);
+          recoveredList.push(entry.Cases);
         });
       });
 
@@ -99,14 +102,14 @@ function fetchData(country) {
       })
       .then((data) => {
         data.forEach((entry) => {
-          deaths_list.push(entry.Cases);
+          deathsList.push(entry.Cases);
         });
       });
 
     updateUI();
   };
 
-  api_fetch(country);
+  apiFetch(country);
 }
 
 // UPDATE UI FUNCTION
@@ -116,23 +119,23 @@ function updateUI() {
 }
 
 function updateStats() {
-  const total_cases = cases_list[cases_list.length - 1];
-  const new_confirmed_cases = total_cases - cases_list[cases_list.length - 2];
+  const totalCases = casesList[casesList.length - 1];
+  const newConfirmedCases = totalCases - casesList[casesList.length - 2];
 
-  const total_recovered = recovered_list[recovered_list.length - 1];
-  const new_recovered_cases =
-    total_recovered - recovered_list[recovered_list.length - 2];
+  const totalRecovered = recoveredList[recoveredList.length - 1];
+  const newTotalRecovered =
+    totalRecovered - recoveredList[recoveredList.length - 2];
 
-  const total_deaths = deaths_list[deaths_list.length - 1];
-  const new_deaths_cases = total_deaths - deaths_list[deaths_list.length - 2];
+  const totalDeaths = deathsList[deathsList.length - 1];
+  const newDeathsCases = totalDeaths - deathsList[deathsList.length - 2];
 
-  country_name_element.innerHTML = user_country;
-  total_cases_element.innerHTML = total_cases;
-  new_cases_element.innerHTML = `+${new_confirmed_cases}`;
-  recovered_element.innerHTML = total_recovered;
-  new_recovered_element.innerHTML = `+${new_recovered_cases}`;
-  deaths_element.innerHTML = total_deaths;
-  new_deaths_element.innerHTML = `+${new_deaths_cases}`;
+  countryNameElement.innerHTML = userCountry;
+  totalCasesElement.innerHTML = totalCases;
+  newCasesElement.innerHTML = `+${newConfirmedCases}`;
+  recoveredElement.innerHTML = totalRecovered;
+  newRecoveredElement.innerHTML = `+${newTotalRecovered}`;
+  deathsElement.innerHTML = totalDeaths;
+  newDeathsElement.innerHTML = `+${newDeathsCases}`;
 
   // format dates
   dates.forEach((date) => {
@@ -141,19 +144,19 @@ function updateStats() {
 }
 
 // UPDATE CHART
-let my_chart;
+let myChart;
 function axesLinearChart() {
-  if (my_chart) {
-    my_chart.destroy();
+  if (myChart) {
+    myChart.destroy();
   }
 
-  my_chart = new Chart(ctx, {
+  myChart = new Chart(ctx, {
     type: "line",
     data: {
       datasets: [
         {
           label: "Cases",
-          data: cases_list,
+          data: casesList,
           fill: false,
           borderColor: "#FFF",
           backgroundColor: "#FFF",
@@ -161,7 +164,7 @@ function axesLinearChart() {
         },
         {
           label: "Recovered",
-          data: recovered_list,
+          data: recoveredList,
           fill: false,
           borderColor: "#009688",
           backgroundColor: "#009688",
@@ -169,7 +172,7 @@ function axesLinearChart() {
         },
         {
           label: "Deaths",
-          data: deaths_list,
+          data: deathsList,
           fill: false,
           borderColor: "#f44336",
           backgroundColor: "#f44336",
